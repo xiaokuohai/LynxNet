@@ -59,7 +59,6 @@ public class RequestFactory {
         this.parameterTypes = method.getGenericParameterTypes();
         this.parameterAnnotationsArray = method.getParameterAnnotations();
         this.args = args;
-
     }
 
     RequestFactory build(){

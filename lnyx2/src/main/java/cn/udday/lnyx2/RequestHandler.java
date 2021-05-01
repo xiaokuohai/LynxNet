@@ -21,7 +21,7 @@ public class RequestHandler implements IRequestHandler {
 
         if (!call.request.headers.isEmpty()) addHeaders(connection, call.request);
 
-        if (call.request.parameterHandlers != null) writeContent(connection,call.request.parameterHandlers);
+        if (call.request.parameterHandlers != null && call.request.hasBody) writeContent(connection,call.request.parameterHandlers);
 
         if (!connection.getDoOutput()) connection.connect();
 

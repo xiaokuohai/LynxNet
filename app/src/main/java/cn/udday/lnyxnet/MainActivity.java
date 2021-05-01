@@ -28,8 +28,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import cn.udday.lnyx2.Call;
+import cn.udday.lnyx2.Callback;
 import cn.udday.lnyx2.Lnyx;
+import cn.udday.lnyx2.Request;
 import cn.udday.lnyx2.RequestFactory;
+import cn.udday.lnyx2.Response;
 import cn.udday.lnyxp.LnyxP;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -55,17 +58,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void toPost(){
         To to = new Lnyx.Builder("https://v2.alapi.cn/api/").build().create(To.class);
-        to.toPost("beijing").enqueue(new cn.udday.lnyx2.Callback() {
+        to.toGet().enqueue(new Callback() {
             @Override
-            public void onResponse(cn.udday.lnyx2.Response response) {
+            public void onResponse(Response response) {
                 textView.setText(response.body().string());
             }
 
             @Override
-            public void onFail(cn.udday.lnyx2.Request request, IOException e) {
+            public void onFail(Request request, IOException e) {
 
             }
         });
+//        to.toPost("beijing").enqueue(new cn.udday.lnyx2.Callback() {
+//            @Override
+//            public void onResponse(cn.udday.lnyx2.Response response) {
+//                textView.setText(response.body().string());
+//            }
+//
+//            @Override
+//            public void onFail(cn.udday.lnyx2.Request request, IOException e) {
+//
+//            }
+//        });
     }
     @Override
     public void onClick(View v) {
