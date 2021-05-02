@@ -1,3 +1,4 @@
+include ':lnyxG'
 include ':LnyxP'
 include ':lnyx2'
 include ':app'

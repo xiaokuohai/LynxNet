@@ -17,7 +17,11 @@ public interface IResponseHandler {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    callback.onResponse(response);
+                    try {
+                        callback.onResponse(response);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             };
             execute(runnable);

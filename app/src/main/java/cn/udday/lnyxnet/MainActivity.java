@@ -1,38 +1,24 @@
 package cn.udday.lnyxnet;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import cn.udday.lnyx2.Call;
 import cn.udday.lnyx2.Callback;
 import cn.udday.lnyx2.Lnyx;
 import cn.udday.lnyx2.Request;
-import cn.udday.lnyx2.RequestFactory;
 import cn.udday.lnyx2.Response;
+import cn.udday.lnyxg.LnyxJson;
 import cn.udday.lnyxp.LnyxP;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -41,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button button2;
     private TextView textView;
     private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         To to = new Lnyx.Builder("https://v2.alapi.cn/api/").build().create(To.class);
         to.toGet().enqueue(new Callback() {
             @Override
-            public void onResponse(Response response) {
-                textView.setText(response.body().string());
+            public void onResponse(Response response) throws IOException {
+                String string = response.body().string();
+                QingHua qingHua = LnyxJson.fromJson(string, QingHua.class);
+                textView.setText(qingHua.getData().getContent());
             }
 
             @Override
