@@ -48,9 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         to.toGet().enqueue(new Callback() {
             @Override
             public void onResponse(Response response) throws IOException {
-                String string = response.body().string();
-                QingHua qingHua = LnyxJson.fromJson(string, QingHua.class);
-                textView.setText(qingHua.getData().getContent());
+                QingHua gson = response.body().gson(QingHua.class);
+                textView.setText(gson.getMsg());
             }
 
             @Override
